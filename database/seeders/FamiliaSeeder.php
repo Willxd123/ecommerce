@@ -327,6 +327,7 @@ class FamiliaSeeder extends Seeder
                 ],
 
             ],
+            
         ];
 
         foreach ($familias as $familia => $categorias) {

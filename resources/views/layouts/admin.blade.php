@@ -1,3 +1,5 @@
+@props(['breadcrumbs'=> []])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -20,21 +22,16 @@
     @livewireStyles
 </head>
 <!-- declaracion de la variable sidebar-->
-<body class="font-sans antialiased" 
 
-x-data="{
-    sidebarOpen: false,
-}"
-:class="{
+<body class="font-sans antialiased" x-data="{
+    sidebarOpen: false
+}" :class="{
     'overflow-y-hidden': sidebarOpen
 }">
-    
+
     <!--configuracion para dinamica del menu y el sidebar-->
-    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 sm:hidden"
-        style="display: none"
-        x-show="sidebarOpen"
-        x-on:click="sidebarOpen = false"    
-    >
+    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 z-20 sm:hidden" style="display: none" x-show="sidebarOpen"
+        x-on:click="sidebarOpen = false">
 
 
     </div>
@@ -44,14 +41,19 @@ x-data="{
 
 
     <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            {{$slot}}
-            
+        <div class="mt-14">
+
+            @include('layouts.particiones.admin.breadcrumb')
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 ">
+                
+
+                {{ $slot }}
+
+            </div>
         </div>
-    </div>
 
 
-    @livewireScripts
+        @livewireScripts
 </body>
 
 </html>
