@@ -2,6 +2,11 @@
 //use Illuminate\Http\Request;
 
 use App\Http\Controllers\Admin\FamiliaController;
+use App\Http\Controllers\Admin\SubcategoriaController;
+use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\ProductoController;
+use App\Models\Categoria;
+use App\Models\Subcategoria;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -9,3 +14,6 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::resource('familias', FamiliaController::class);
+Route::resource('categorias', CategoriaController::class);
+Route::resource('subcategorias', SubcategoriaController::class);
+Route::resource('productos', ProductoController::class);

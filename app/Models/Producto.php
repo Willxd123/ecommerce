@@ -8,16 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
-
     //asignacion masiva
     protected $fillable = [
         'nombre',
-        'stock',
-        'dimension',
-        'descripcion',
+        'stock' ,
+        'dimension' ,
         'precio',
         'imagen',
-        'subcategoria_id'
+        'subcategoria_id',
     ];
 
     //relacion uno a muchos inversa

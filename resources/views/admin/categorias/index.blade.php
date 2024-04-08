@@ -4,21 +4,22 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Familias',
+        'name' => 'Categorias',
     ],
 ]">
-        <!--boton y el llamado a buttons.css-->
-    <x-slot name="action">
-        <a class="btn btn-blue" href="{{route('admin.familias.create')}}">
-            Nuevo
-        </a>
-    </x-slot>
+
+    <!--boton y el llamado a buttons.css-->
+    <!-- Botón "Nuevo" -->
+    <div>
+        <x-slot name="action">
+            <a class="btn btn-blue" href="{{ route('admin.categorias.create') }}">
+                Nuevo
+            </a>
+        </x-slot>
+    </div>
 
 
-    @if ($familias->count())
-
-
-
+    @if ($categorias->count())
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -30,23 +31,31 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
-
+                            familia
                         </th>
+
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($familias as $familia)
+                    @foreach ($categorias as $categoria)
                         <tr class="bg-white dark:bg-gray-800">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $familia->id }}
+                                {{ $categoria->id }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $familia->nombre }}
+                                {{ $categoria->nombre }}
                             </td>
+
                             <td class="px-6 py-4">
-                                <a href="{{ route('admin.familias.edit', $familia) }}">
+                                {{ $categoria->familia->nombre }}
+                            </td>
+
+
+
+                            <td class="px-6 py-4">
+                                <a href="{{ route('admin.categorias.edit', $categoria) }}">
                                     Editar
                                 </a>
                             </td>
@@ -61,7 +70,7 @@
 
         <!-- paginacion-->
         <div>
-            {{ $familias->links() }}
+            {{ $categorias->links() }}
         </div>
     @else
         <!--estilo de alertas-->
@@ -74,7 +83,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se reguistraron familias
+                <span class="font-medium">Info alert!</span> Aun no se reguistraron grados
             </div>
     @endif
 </x-admin-layout>

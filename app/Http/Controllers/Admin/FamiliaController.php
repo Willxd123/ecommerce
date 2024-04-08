@@ -14,7 +14,7 @@ class FamiliaController extends Controller
     public function index()
     {
         //migrasion = modulo (identifica al modulo y la bd para la funcionalidad)
-        $familias = Familia::paginate();
+        $familias = Familia::orderBy('id', 'desc')->paginate(10);
         return view('admin.familias.index', compact('familias'));
     }
 
@@ -23,7 +23,7 @@ class FamiliaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.familias.create');
     }
 
     /**
@@ -31,7 +31,12 @@ class FamiliaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required'
+        ]);
+        Familia::create($request->all());
+        //redireccion al index admin.familias.index
+        return redirect()->route('admin.familias.index');
     }
 
     /**
@@ -39,7 +44,7 @@ class FamiliaController extends Controller
      */
     public function show(Familia $familia)
     {
-        //
+        
     }
 
     /**
@@ -47,7 +52,7 @@ class FamiliaController extends Controller
      */
     public function edit(Familia $familia)
     {
-        //
+        return view('admin.familias.edit', compact('familia'));
     }
 
     /**
@@ -55,7 +60,11 @@ class FamiliaController extends Controller
      */
     public function update(Request $request, Familia $familia)
     {
-        //
+        $request->validate([
+            'nombre' => 'required'
+        ]);
+        $familia->update($request->all());
+        return redirect()->route('admin.familias.index', $familia);
     }
 
     /**
@@ -63,6 +72,7 @@ class FamiliaController extends Controller
      */
     public function destroy(Familia $familia)
     {
-        //
+        $familia->delete();
+        return redirect()->route('admin.familias.index');
     }
 }

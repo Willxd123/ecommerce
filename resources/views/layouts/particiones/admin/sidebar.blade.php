@@ -8,11 +8,32 @@
             'active' => request()->routeIs('admin.dashboard'),
         ],
         [
-            //familia de categorias
+            //familia de familias
             'name' => 'Familias',
             'icon' => 'fa-solid fa-box-open',
             'route' => route('admin.familias.index'),
             'active' => request()->routeIs('admin.familias.*'),
+        ],
+        [
+            //familia de catergorias
+            'name' => 'Categorias',
+            'icon' => 'fa-solid fa-box-open',
+            'route' => route('admin.categorias.index'),
+            'active' => request()->routeIs('admin.categorias.*'),
+        ],
+        [
+            //familia de subcategoria
+            'name' => 'Subategorias',
+            'icon' => 'fa-solid fa-box-open',
+            'route' => route('admin.subcategorias.index'),
+            'active' => request()->routeIs('admin.subcategorias.*'),
+        ],
+        [
+            //familia de productos
+            'name' => 'Productos',
+            'icon' => 'fa-solid fa-box-open',
+            'route' => route('admin.productos.index'),
+            'active' => request()->routeIs('admin.productos.*'),
         ],
     ];
 @endphp

@@ -9,7 +9,7 @@ class Familia extends Model
 {
     use HasFactory;
 
-    //asignacion masiva
+    //asignacion masiva para los controladores
     protected $fillable = [
         'nombre',
     ];

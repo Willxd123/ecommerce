@@ -43,7 +43,17 @@
     <div class="p-4 sm:ml-64">
         <div class="mt-14">
 
-            @include('layouts.particiones.admin.breadcrumb')
+            <div class="flex justify-between items-center">
+                @include('layouts.particiones.admin.breadcrumb')
+                
+                @isset($action)
+                <div>
+                    {{$action}}
+                </div>
+                @endisset
+               
+            </div>
+            
             <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 ">
                 
 
@@ -54,6 +64,7 @@
 
 
         @livewireScripts
+        @stack('js')
 </body>
 
 </html>
