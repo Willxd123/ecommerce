@@ -17,21 +17,21 @@
         [
             //familia de catergorias
             'name' => 'Categorias',
-            'icon' => 'fa-solid fa-box-open',
+            'icon' => 'fa-solid fa-layer-group',
             'route' => route('admin.categorias.index'),
             'active' => request()->routeIs('admin.categorias.*'),
         ],
         [
             //familia de subcategoria
             'name' => 'Subategorias',
-            'icon' => 'fa-solid fa-box-open',
+            'icon' => 'fa-solid fa-tags',
             'route' => route('admin.subcategorias.index'),
             'active' => request()->routeIs('admin.subcategorias.*'),
         ],
         [
             //familia de productos
             'name' => 'Productos',
-            'icon' => 'fa-solid fa-box-open',
+            'icon' => 'fa-solid fa-gifts',
             'route' => route('admin.productos.index'),
             'active' => request()->routeIs('admin.productos.*'),
         ],

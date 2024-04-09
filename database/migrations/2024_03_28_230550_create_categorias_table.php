@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable('familias')) {
+            // Si no existe, mostrar un mensaje de error
+            throw new \Exception('La tabla "familias" no existe en la base de datos.');
+        }
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');

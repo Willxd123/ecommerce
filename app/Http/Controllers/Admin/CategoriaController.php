@@ -23,12 +23,9 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        
-        $Familias= Categoria::all();
 
-
+        $familias = Familia::all();
         return view('admin.categorias.create', compact('familias'));
-
     }
 
     /**
@@ -36,17 +33,16 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'familia_id' => 'required|exists:familia,id',
-            'nombre' => 'required',
-        ]);
-
         Categoria::create([
             'familia_id' => $request->familia_id,
             'nombre' => $request->nombre,
-
-
         ]);
+        $request->validate([
+            'familia_id' => 'required|exists:familias,id',
+            'nombre' => 'required',
+        ]);
+
+
 
         return redirect()->route('admin.categorias.index');
     }
@@ -64,7 +60,8 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        //
+        $familias = Familia::all();
+        return view('admin.categorias.edit', compact('categoria','familias'));
     }
 
     /**
@@ -72,7 +69,17 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $request->validate([
+            'familia_id' => 'required|exists:familias,id',
+            'nombre' => 'required',
+        ]);
+        $categoria->update($request->all());
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'Bien Hecho',
+            'text' => 'Categoria actualizada correctamente.'
+        ]);
+        return redirect()->route('admin.categorias.index', $categoria);
     }
 
     /**
@@ -80,6 +87,20 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        if($categoria->subcategorias->count()>0){
+            session()->flash('swal',[
+                'icon'=> 'error',
+                'title'=>'¡Ups!',
+                'text' => 'No se puede eliminar la familia porque tiene categorias asociadas.'
+            ]);
+            return redirect()->route('admin.categorias.edit',$categoria);
+        }
+        $categoria->delete();
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'¡Bien hecho!',
+            'text' => 'Familia eliminada correctamente.'
+        ]);
+        return redirect()->route('admin.categorias.index');
     }
 }

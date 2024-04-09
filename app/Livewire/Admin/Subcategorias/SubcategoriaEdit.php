@@ -50,7 +50,11 @@ class SubcategoriaEdit extends Component
             'subcategoriaEdit.nombre' => 'nombre',
         ]);
         $this->subcategoria->update($this->subcategoriaEdit);
-
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'Bien Hecho',
+            'text' => 'Subcategoria actualizada correctamente.'
+        ]);
         return redirect()->route('admin.subcategorias.index');
     }
 

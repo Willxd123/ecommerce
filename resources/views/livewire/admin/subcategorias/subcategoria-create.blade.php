@@ -22,7 +22,7 @@
                         </x-label>
                         <x-select class="w-full" wire:model.live="subcategoria.categoria_id">
                             <option value="" disabled {{ is_null($subcategoria['categoria_id']) ? 'selected' : '' }}>
-                                Seleccione una subcategoría</option>
+                                Seleccione una categoría</option>
                             @foreach ($this->categorias as $categoria)
                                 <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                             @endforeach
@@ -49,3 +49,7 @@
     @dump($subcategoria);
 
 </div>
+
+
+
+                  

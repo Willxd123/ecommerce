@@ -42,7 +42,11 @@ class SubcategoriaController extends Controller
             'nombre' => $request->nombre,
 
         ]);
-
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'Bien Hecho',
+            'text' => 'Familia creada correctamente.'
+        ]);
         return redirect()->route('admin.subcategorias.index');
     }
 

@@ -38,6 +38,11 @@ class SubcategoriaCreate extends Component
             'subcategoria.nombre' => 'nombre',
         ]);
         Subcategoria::create($this->subcategoria);
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'Bien Hecho',
+            'text' => 'Subcategoria creada correctamente.'
+        ]);
         return redirect()->route('admin.subcategorias.index');
     }
 

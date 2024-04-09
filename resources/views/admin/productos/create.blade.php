@@ -4,12 +4,14 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Productos',
+        'name' => 'Producto',
         'route' => route('admin.productos.index'),
     ],
     [
-        'name' => 'nuevo',
+        'name' => 'Nuevo',
     ],
 ]">
 
+
+@livewire('admin.productos.producto-create')
 </x-admin-layout>

@@ -25,11 +25,11 @@
                 </div>
             </div>
             <div class="flex justify-end ">
-                <form action="">
-                    <x-danger-button onclick="confirmDelete()">
-                        Eliminar
-                    </x-danger-button>
-                </form>
+
+                <x-danger-button onclick="confirmDelete()">
+                    Eliminar
+                </x-danger-button>
+
 
                 <x-button class="ml-2">
                     Actualizar
@@ -41,10 +41,25 @@
         @csrf
         @method('DELETE')
     </form>
+
     @push('js')
         <script>
             function confirmDelete() {
-                document.getElementById('delete-from').submit();
+                Swal.fire({
+                    title: "Estas seguro?",
+                    text: "¡No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "¡Sí, bórralo!",
+                    cancelButtonText: "Cancelar",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+     
+                        document.getElementById('delete-from').submit();
+                    }
+                });
             }
         </script>
     @endpush

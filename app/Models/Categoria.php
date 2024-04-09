@@ -12,7 +12,7 @@ class Categoria extends Model
     //asignacion masiva
     protected $fillable = [
         'nombre',
-        'familia_id'
+        'familia_id',
     ];
 
     //relacion uno a muchos inversa
