@@ -10,10 +10,13 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class ProductoCreate extends Component
+class ProductoEdit extends Component
 {
+
     use WithFileUploads;
     public $image;
+    public $categorias;
+    public $subcategorias;
     public $familias;
     public $familia_id = '';
     public $categoria_id = '';
@@ -29,21 +32,36 @@ class ProductoCreate extends Component
         'precio' => '',
         'imagen' => '',
     ];
+    public $productoEdit;
 
 
-    public function mount()
+    public function mount($producto)
     {
+
+        $this->productoEdit = [
+            'nombre' => $producto->nombre,
+            'stock' => $producto->stock,
+            'descripcion' => $producto->descripcion,
+            'precio' => $producto->precio,
+            'imagen' => $producto->imagen,
+            'subcategoria_id' => $producto->subcategoria_id,
+            'categoria_id' => $producto->subcategoria->categoria->id,
+            'familia_id' => $producto->subcategoria->categoria->familia_id,
+
+        ];
         $this->familias = Familia::all();
+        $this->categorias = Categoria::all();
+        $this->subcategorias = Subcategoria::all();
     }
     public function updatedProductoFamiliaId()
     {
         $this->categoria_id = '';
-        $this->producto['subcategoria_id']= ''; // Cambiado a subcategoria_id en lugar de producto['subcategoria_id']
+        $this->productoEdit['subcategoria_id'] = ''; // Cambiado a subcategoria_id en lugar de producto['subcategoria_id']
     }
 
     public function updatedProductoCategoriaId()
     {
-        $this->producto['subcategoria_id'] = ''; // Cambiado a subcategoria_id en lugar de producto['subcategoria_id']
+        $this->productoEdit['subcategoria_id'] = ''; // Cambiado a subcategoria_id en lugar de producto['subcategoria_id']
     }
 
 
@@ -74,17 +92,20 @@ class ProductoCreate extends Component
         // Guardar la imagen en el almacenamiento y asignarla al producto
         $producto->imagen = $this->image->store('productos');
         $producto->save();
-        
+
+        // Actualizar la variable productoEdit['imagen']
+        $this->productoEdit['imagen'] = $producto->imagen;
+
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Bien Hecho',
-            'text' => 'Producto creado correctamente.'
+            'text' => 'Producto actualizado correctamente.'
         ]);
 
         return redirect()->route('admin.productos.index');
     }
 
-
+    //propiedades computadas
     #[Computed()]
     public function categorias()
     {
@@ -105,8 +126,9 @@ class ProductoCreate extends Component
         }
     }
 
+
     public function render()
     {
-        return view('livewire.admin.productos.producto-create');
+        return view('livewire.admin.productos.producto-edit');
     }
 }

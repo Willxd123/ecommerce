@@ -34,20 +34,9 @@
                             Stock
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Descripcion
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Precio
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Subcategoria
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Categoria
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Familia
-                        </th>
+
 
 
                     </tr>
@@ -65,24 +54,11 @@
                             <td class="px-6 py-4">
                                 {{ $producto->stock }}
                             </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->descripcion }}
-                            </td>
+
                             <td class="px-6 py-4">
                                 {{ $producto->precio }}
                             </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->imagen}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->categoria->nombre }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->categoria->familia->nombre }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->subcategoria->categoria->familia->nombre }}
-                            </td>
+                            
 
 
 

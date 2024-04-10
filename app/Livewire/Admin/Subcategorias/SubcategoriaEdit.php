@@ -21,7 +21,7 @@ class SubcategoriaEdit extends Component
         $this->subcategoriaEdit = [
             'familia_id' => $subcategoria->categoria->familia_id,
             'categoria_id' => $subcategoria->categoria_id,
-            'nombre' => $subcategoria->name,
+            'nombre' => $subcategoria->nombre,
         ];
     }
     public function updatedSubcategoriaEditFamiliaId()
