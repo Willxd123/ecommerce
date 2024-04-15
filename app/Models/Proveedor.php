@@ -15,6 +15,7 @@ class Proveedor extends Model
         'encargado',
     ];
 
+    //relacion uno a muchos
     public function productos(){
         return $this->hasMany(Producto::class);
     }

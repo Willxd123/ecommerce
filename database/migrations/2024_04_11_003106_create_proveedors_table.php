@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('direccion');
             $table->string('correo');
-            $table->string('encargdo');
+            $table->string('encargado');
 
             $table->timestamps();
 

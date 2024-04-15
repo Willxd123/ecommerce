@@ -4,22 +4,21 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Productos',
+        'name' => 'Proveedor',
     ],
 ]">
-
-    <!--boton y el llamado a buttons.css-->
-    <!-- Botón "Nuevo" -->
-    <div>
-        <x-slot name="action">
-            <a class="btn btn-blue" href="{{ route('admin.productos.create') }}">
-                Nuevo
-            </a>
-        </x-slot>
-    </div>
+        <!--boton y el llamado a buttons.css-->
+    <x-slot name="action">
+        <a class="btn btn-blue" href="{{route('admin.proveedors.create')}}">
+            Nuevo
+        </a>
+    </x-slot>
 
 
-    @if ($productos->count())
+    @if ($proveedores->count())
+
+
+
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -31,39 +30,42 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Stock
+                            Direccion
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Precio
+                            Correo
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Encargado
+                        </th>
+                        
+                        <th scope="col" class="px-6 py-3">
 
-
+                        </th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($productos as $producto)
+                    @foreach ($proveedores as $proveedor)
                         <tr class="bg-white dark:bg-gray-800">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $producto->id }}
+                                {{ $proveedor->id }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $producto->nombre }}
+                                {{ $proveedor->nombre }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $producto->stock }}
+                                {{ $proveedor->direccion }}
                             </td>
-
                             <td class="px-6 py-4">
-                                {{ $producto->precio }}
+                                {{ $proveedor->correo }}
                             </td>
-                            
-
-
-
                             <td class="px-6 py-4">
-                                <a href="{{ route('admin.productos.edit', $producto) }}">
+                                {{ $proveedor->encargado }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="{{ route('admin.proveedors.edit', $proveedor) }}">
                                     Editar
                                 </a>
                             </td>
@@ -78,7 +80,7 @@
 
         <!-- paginacion-->
         <div>
-            {{ $productos->links() }}
+            {{ $proveedores->links() }}
         </div>
     @else
         <!--estilo de alertas-->
@@ -91,7 +93,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se reguistraron productos
+                <span class="font-medium">Info alert!</span> Aun no se registraron proveedores
             </div>
     @endif
 </x-admin-layout>
