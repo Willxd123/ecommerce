@@ -11,7 +11,7 @@
                     alt="{{ Auth::user()->name }}" />
                 <div class="ml-4 flex-1">
                     <h2 class="text-lg font-semibold">
-                        Bienvenido{{ auth()->user()->name }}
+                         Bienvenido{{ auth()->user()->name }}
                     </h2>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf

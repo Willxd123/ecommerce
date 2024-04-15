@@ -15,7 +15,7 @@
                 src="{{ $image ? $image->temporaryUrl() : asset('img/no-imagen.png') }}" alt="">
         </figure>
 
-
+        
 
 
         <div class="card">

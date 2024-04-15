@@ -88,6 +88,11 @@ class SubcategoriaController extends Controller
             return redirect()->route('admin.subcategorias.edit', $subcategoria);
         }
         $subcategoria->delete();
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'¡Bien hecho!',
+            'text' => 'Subcategoria eliminada correctamente.'
+        ]);
         return redirect()->route('admin.subcategorias.index');
     }
 }
