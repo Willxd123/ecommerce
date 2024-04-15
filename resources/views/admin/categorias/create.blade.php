@@ -24,6 +24,7 @@
                     <x-label for="familia_id" class="mb-2">familia</x-label>
 
                     <x-select name="familia_id" class="w-full">
+                        
                         <option value="" disabled>Seleccione una familia</option>
                         @foreach ($familias as $familia)
                             <option value="{{ $familia->id }}"

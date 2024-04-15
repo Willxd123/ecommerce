@@ -35,4 +35,12 @@ class Producto extends Model
                     ->withPivot('valor')
                     ->withTimestamps();
     }
+
+    //relacion muchos a muchos 
+    public function proveedors(){
+        return $this->belongsToMany(Proveedor::class)
+                    ->withPivot('valor')
+                    ->withTimestamps();
+    }
+    
 }
