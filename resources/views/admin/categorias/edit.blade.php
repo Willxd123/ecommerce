@@ -16,8 +16,7 @@
         @csrf
         <div class="card">
             <x-validation-errors class="mb-4" />
-
-
+            
             <div class="mb-4 ">
                 <!-- select categoria -->
                 <div class="mb-4">

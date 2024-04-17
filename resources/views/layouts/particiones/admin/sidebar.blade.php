@@ -35,6 +35,14 @@
             'route' => route('admin.productos.index'),
             'active' => request()->routeIs('admin.productos.*'),
         ],
+        [
+            //proveedores
+            'name' => 'Proveedor',
+            'icon' => 'fa-solid fa-truck-field',
+            'route' => route('admin.proveedors.index'),
+            'active' => request()->routeIs('admin.proveedors.*'),
+        ],
+        
     ];
 @endphp
 
