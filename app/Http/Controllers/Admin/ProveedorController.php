@@ -36,16 +36,10 @@ class ProveedorController extends Controller
             'correo' => 'required',
             'encargado' => 'required',
         ]);
-        Proveedor::create($request->all());
-<<<<<<< HEAD
-        session()->flash('swal', [
-            'icon' => 'success',
-            'title' => 'Bien Hecho',
-=======
+
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Bien Hecho',
->>>>>>> 93c0cf327fc2c2f813d9b72a0e2fdff8fa79b885
             'text' => 'Proveedor creada correctamente.'
         ]);
         return redirect()->route('admin.proveedors.index');
@@ -79,16 +73,9 @@ class ProveedorController extends Controller
             'encargado' => 'required',
         ]);
         $proveedor->update($request->all());
-
-<<<<<<< HEAD
-        session()->flash('swal', [
-            'icon' => 'success',
-            'title' => 'Bien Hecho',
-=======
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Bien Hecho',
->>>>>>> 93c0cf327fc2c2f813d9b72a0e2fdff8fa79b885
             'text' => 'El proveedor actualizada correctamente.'
         ]);
 
@@ -101,15 +88,9 @@ class ProveedorController extends Controller
     public function destroy(Proveedor $proveedor)
     {
         $proveedor->delete();
-<<<<<<< HEAD
-        session()->flash('swal', [
-            'icon' => 'success',
-            'title' => '¡Bien hecho!',
-=======
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'¡Bien hecho!',
->>>>>>> 93c0cf327fc2c2f813d9b72a0e2fdff8fa79b885
             'text' => 'El proveedor eliminada correctamente.'
         ]);
         return redirect()->route('admin.proveedors.index');
