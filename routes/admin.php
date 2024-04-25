@@ -18,8 +18,5 @@ Route::resource('familias', FamiliaController::class);
 Route::resource('categorias', CategoriaController::class);
 Route::resource('subcategorias', SubcategoriaController::class);
 Route::resource('productos', ProductoController::class);
-<<<<<<< HEAD
 Route::resource('proveedors', ProveedorController::class);
-=======
-/*holaaaaaaa*/  
->>>>>>> 843617e1ac925bc4da2057cf7dcbdc998d6a6ac8
+ 
