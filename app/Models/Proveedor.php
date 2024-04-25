@@ -14,9 +14,6 @@ class Proveedor extends Model
         'correo' ,
         'encargado',
     ];
-<<<<<<< HEAD
-    
-=======
 
     //relacion uno a muchos
     public function productos(){
@@ -27,5 +24,5 @@ class Proveedor extends Model
     public function telefonos(){
         return $this->hasMany(Telefono::class);
     }
->>>>>>> 93c0cf327fc2c2f813d9b72a0e2fdff8fa79b885
+
 }
