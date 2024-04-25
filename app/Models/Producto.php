@@ -35,4 +35,5 @@ class Producto extends Model
                     ->withPivot('valor')
                     ->withTimestamps();
     }
+    
 }

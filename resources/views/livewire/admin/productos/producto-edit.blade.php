@@ -17,9 +17,6 @@
 
         </figure>
 
-
-
-
         <div class="card">
             <div>
                 <x-validation-errors class="mb-4" />
@@ -38,9 +35,9 @@
                             wire:model="productoEdit.stock" />
                     </div>
                     <div>
-                        <x-label class="mb-3">Descripsion</x-label>
+                        <x-label class="mb-3">Descripcion</x-label>
                         <x-textarea class="w-full" placeholder="Ingrese la descripsion del producto"
-                            wire:model="productoEdit.descripsion" />
+                            wire:model="productoEdit.descripcion" />
                     </div>
 
                 </div>
