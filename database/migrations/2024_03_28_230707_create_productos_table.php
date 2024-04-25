@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('imagen');
             $table->foreignId('subcategoria_id')
             ->constrained();
-            $table->timestamps();
         });
     }
 

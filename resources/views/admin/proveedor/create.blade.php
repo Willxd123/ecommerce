@@ -14,6 +14,9 @@
     <div class="card">
         <form action="{{ route('admin.proveedors.store') }}" method="POST">
             @csrf
+
+            <x-validation-errors class="mb-4" />
+
             <div class="mb-4">
                 <x-label class="mb-3">
                     Nombre
@@ -21,31 +24,29 @@
                 <x-input class="w-full" placeholder="ingrese el nombre del proveedor" 
                 name="nombre"
                 value="{{old('nombre')}}"/>
-            </div>
-            <div class="mb-4">
+
                 <x-label class="mb-3">
                     Direccion
                 </x-label>
                 <x-input class="w-full" placeholder="ingrese la direccion del proveedor" 
                 name="direccion"
                 value="{{old('direccion')}}"/>
-            </div>
-            <div class="mb-4">
+
                 <x-label class="mb-3">
                     Correo
                 </x-label>
                 <x-input class="w-full" placeholder="ingrese el correo del proveedor" 
                 name="correo"
                 value="{{old('correo')}}"/>
-            </div>
-            <div class="mb-4">
+           
                 <x-label class="mb-3">
                     Encargado
                 </x-label>
                 <x-input class="w-full" placeholder="ingrese el nombre del encargado" 
                 name="encargado"
-                value="{{old('encargado')}}"/>
+                value="{{old('encargado')}}"/>                
             </div>
+
             <div class="flex justify-end">
                 <x-button>
                     Guardar

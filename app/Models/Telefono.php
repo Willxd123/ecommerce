@@ -10,6 +10,7 @@ class Telefono extends Model
     use HasFactory;
     protected $fillable = [
         'numero',
+        'proveedor_id',
     ];
 
     //relacion uno a muchos inversa
