@@ -42,7 +42,10 @@
             'route' => route('admin.proveedors.index'),
             'active' => request()->routeIs('admin.proveedors.*'),
         ],
+<<<<<<< HEAD
         
+=======
+>>>>>>> 93c0cf327fc2c2f813d9b72a0e2fdff8fa79b885
     ];
 @endphp
 

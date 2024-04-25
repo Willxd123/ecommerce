@@ -36,11 +36,20 @@
                             wire:model="producto.stock" />
                     </div>
                     <div>
-                        <x-label class="mb-3">Descripsion</x-label>
+                        <x-label class="mb-3">Descripcion</x-label>
                         <x-textarea class="w-full" placeholder="Ingrese la descripsion del producto"
-                            wire:model="producto.descripsion" />
+                            wire:model="producto.descripcion" />
                     </div>
-
+                    <div>
+                        <x-label class="mb-3">Precio</x-label>
+                        <x-input class="w-full" placeholder="Ingrese el precio del producto"
+                            wire:model="producto.precio" />
+                    </div>
+                    <div>
+                        <x-label class="mb-3">Imagen</x-label>
+                        <x-input class="w-full" placeholder="Ingrese la imagen del producto"
+                            wire:model="producto.imagen" />
+                    </div>
                 </div>
 
                 <!-- select familia -->
