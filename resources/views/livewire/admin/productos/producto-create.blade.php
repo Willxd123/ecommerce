@@ -15,15 +15,11 @@
                 src="{{ $image ? $image->temporaryUrl() : asset('img/no-imagen.png') }}" alt="">
         </figure>
 
-        
-
-
         <div class="card">
             <div>
                 <x-validation-errors class="mb-4" />
 
                 <div class="mb-4">
-
 
                     <div>
                         <x-label class="mb-3">Nombre</x-label>
