@@ -36,7 +36,9 @@ class ProveedorController extends Controller
             'correo' => 'required',
             'encargado' => 'required',
         ]);
+
         Proveedor::create($request->all());
+
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Bien Hecho',
@@ -73,7 +75,6 @@ class ProveedorController extends Controller
             'encargado' => 'required',
         ]);
         $proveedor->update($request->all());
-
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Bien Hecho',

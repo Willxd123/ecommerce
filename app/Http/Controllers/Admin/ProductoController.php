@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Familia;
 use App\Models\Producto;
+use App\Models\Proveedor;
 use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,7 @@ class ProductoController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Producto $producto)
+
     {
         return view('admin.productos.edit', compact('producto'));
     }
