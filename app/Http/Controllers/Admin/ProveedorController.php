@@ -37,6 +37,8 @@ class ProveedorController extends Controller
             'encargado' => 'required',
         ]);
 
+        Proveedor::create($request->all());
+
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Bien Hecho',
@@ -88,6 +90,7 @@ class ProveedorController extends Controller
     public function destroy(Proveedor $proveedor)
     {
         $proveedor->delete();
+
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'¡Bien hecho!',

@@ -12,11 +12,9 @@
                 </label>
             </div>
             <img class="aspect-[16/9] object-cover object-center w-full h-auto"
-                src="{{ $image ? $image->temporaryUrl() : (isset($productoEdit['imagen']) ? Storage::url($productoEdit['imagen']) : asset('img/no-imagen.png')) }}"
-                alt="">
-
+                src="{{ $image ? $image->temporaryUrl() : Storage::url($productoEdit['imagen']) }}">
         </figure>
-
+        {{ Storage::url($productoEdit['imagen']) }}
         <div class="card">
             <div>
                 <x-validation-errors class="mb-4" />

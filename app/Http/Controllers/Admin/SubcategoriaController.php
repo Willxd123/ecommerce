@@ -33,12 +33,12 @@ class SubcategoriaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'categoria_id' => 'required|exists:grados,id',
+            'categoria_id' => 'required|exists:subcategorias,id',
             'nombre' => 'required',
         ]);
 
         Subcategoria::create([
-            'subcategoria_id' => $request->grado_id,
+            'subcategoria_id' => $request->subcategoria_id,
             'nombre' => $request->nombre,
 
         ]);

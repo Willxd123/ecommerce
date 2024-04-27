@@ -36,23 +36,8 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'subcategoria_id' => 'required|exists:subcategoria,id',
-            'categoria_id' => 'required|exists:categoria,id',
-            'familia_id' => 'required|exists:familia,id',
-            'nombre' => 'required',
-        ]);
+       
 
-        Producto::create([
-            'grado_id' => $request->grado_id,
-            'tutor_id' => $request->tutor_id,
-            'nombre' => $request->nombre,
-            'sexo' => $request->sexo,
-            'apellido' => $request->apellido,
-
-        ]);
-
-        return redirect()->route('admin.estudiantes.index');
     }
 
     /**
