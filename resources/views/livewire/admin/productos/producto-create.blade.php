@@ -40,16 +40,6 @@
                         <x-textarea class="w-full" placeholder="Ingrese la descripsion del producto"
                             wire:model="producto.descripcion" />
                     </div>
-                    <div>
-                        <x-label class="mb-3">Precio</x-label>
-                        <x-input class="w-full" placeholder="Ingrese el precio del producto"
-                            wire:model="producto.precio" />
-                    </div>
-                    <div>
-                        <x-label class="mb-3">Imagen</x-label>
-                        <x-input class="w-full" placeholder="Ingrese la imagen del producto"
-                            wire:model="producto.imagen" />
-                    </div>
                 </div>
 
                 <!-- select familia -->
@@ -99,6 +89,6 @@
 
     </form>
 
-    {{-- @dump($producto); --}}
+    @dump($producto); 
 
 </div>

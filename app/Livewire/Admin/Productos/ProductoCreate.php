@@ -49,7 +49,9 @@ class ProductoCreate extends Component
 
     public function store()
     {
+        
         $this->validate([
+            'image' => 'required|image|max:1024', // Validación para la imagen
             'producto.subcategoria_id' => 'required|exists:subcategorias,id',
             'producto.categoria_id' => 'required|exists:categorias,id',
             'producto.familia_id' => 'required|exists:familias,id',
@@ -57,9 +59,6 @@ class ProductoCreate extends Component
             'producto.stock' => 'required|numeric|min:0',
             'producto.descripcion' => 'nullable',
             'producto.precio' => 'required|numeric|min:0',
-
-
-            'image' => 'image|max:1024', // Validación para la imagen
         ], [], [
             'producto.subcategoria_id' => 'subcategoria',
             'producto.categoria_id' => 'categoria',
@@ -69,11 +68,8 @@ class ProductoCreate extends Component
             'producto.descripcion' => 'descripcion',
             'producto.precio' => 'precio',
         ]);
-        $producto = Producto::create($this->producto);
-
-        // Guardar la imagen en el almacenamiento y asignarla al producto
-        $producto->imagen = $this->image->store('productos');
-        $producto->save();
+        $this->producto['imagen']= $this->image->store('productos');
+        Producto::create($this->producto);
         
         session()->flash('swal', [
             'icon' => 'success',

@@ -14,41 +14,23 @@ class ProductoEdit extends Component
 {
 
     use WithFileUploads;
-    public $image;
     public $categorias;
     public $subcategorias;
     public $familias;
     public $familia_id = '';
     public $categoria_id = '';
     public $subcategoria_id = '';
-
-    public $producto = [
-        'familia_id' => '',
-        'categoria_id' => '',
-        'subcategoria_id' => '',
-        'nombre' => '',
-        'stock' => '',
-        'descripcion' => '',
-        'precio' => '',
-        'imagen' => '',
-    ];
+    public $producto;
     public $productoEdit;
+    public $image;
 
 
     public function mount($producto)
     {
 
-        $this->productoEdit = [
-            'nombre' => $producto->nombre,
-            'stock' => $producto->stock,
-            'descripcion' => $producto->descripcion,
-            'precio' => $producto->precio,
-            'imagen' => $producto->imagen,
-            'subcategoria_id' => $producto->subcategoria_id,
-            'categoria_id' => $producto->subcategoria->categoria->id,
-            'familia_id' => $producto->subcategoria->categoria->familia_id,
+        $this->productoEdit = $producto->only('nombre','descripcion','stock','precio','imagen');
 
-        ];
+       
         $this->familias = Familia::all();
         $this->categorias = Categoria::all();
         $this->subcategorias = Subcategoria::all();
@@ -68,24 +50,24 @@ class ProductoEdit extends Component
     public function store()
     {
         $this->validate([
-            'producto.subcategoria_id' => 'required|exists:subcategorias,id',
-            'producto.categoria_id' => 'required|exists:categorias,id',
-            'producto.familia_id' => 'required|exists:familias,id',
-            'producto.nombre' => 'required|max:255',
-            'producto.stock' => 'required|numeric|min:0',
-            'producto.descripcion' => 'nullable',
-            'producto.precio' => 'required|numeric|min:0',
+            'productoEdit.subcategoria_id' => 'required|exists:subcategorias,id',
+            'productoEdit.categoria_id' => 'required|exists:categorias,id',
+            'productoEdit.familia_id' => 'required|exists:familias,id',
+            'productoEdit.nombre' => 'required|max:255',
+            'productoEdit.stock' => 'required|numeric|min:0',
+            'productoEdit.descripcion' => 'nullable',
+            'productoEdit.precio' => 'required|numeric|min:0',
 
 
-            'image' => 'image|max:1024', // Validación para la imagen
+            'image' => 'nullable|image|max:1024', // Validación para la imagen
         ], [], [
-            'producto.subcategoria_id' => 'subcategoria',
-            'producto.categoria_id' => 'categoria',
-            'producto.familia_id' => 'familia',
-            'producto.nombre' => 'nombre',
-            'producto.stock' => 'stock',
-            'producto.descripcion' => 'descripcion',
-            'producto.precio' => 'precio',
+            'productoEdit.subcategoria_id' => 'subcategoria',
+            'productoEdit.categoria_id' => 'categoria',
+            'productoEdit.familia_id' => 'familia',
+            'productoEdit.nombre' => 'nombre',
+            'productoEdit.stock' => 'stock',
+            'productoEdit.descripcion' => 'descripcion',
+            'productoEdit.precio' => 'precio',
         ]);
         $producto = Producto::create($this->producto);
 

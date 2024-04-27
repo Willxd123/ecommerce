@@ -19,6 +19,5 @@ Route::resource('categorias', CategoriaController::class);
 Route::resource('subcategorias', SubcategoriaController::class);
 Route::resource('productos', ProductoController::class);
 Route::resource('proveedors', ProveedorController::class);
-
 /*holaaaaaaa*/  
 
