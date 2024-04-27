@@ -15,15 +15,11 @@
                 src="{{ $image ? $image->temporaryUrl() : asset('img/no-imagen.png') }}" alt="">
         </figure>
 
-
-
-
         <div class="card">
             <div>
                 <x-validation-errors class="mb-4" />
 
                 <div class="mb-4">
-
 
                     <div>
                         <x-label class="mb-3">Nombre</x-label>
@@ -36,11 +32,10 @@
                             wire:model="producto.stock" />
                     </div>
                     <div>
-                        <x-label class="mb-3">Descripsion</x-label>
+                        <x-label class="mb-3">Descripcion</x-label>
                         <x-textarea class="w-full" placeholder="Ingrese la descripsion del producto"
-                            wire:model="producto.descripsion" />
+                            wire:model="producto.descripcion" />
                     </div>
-
                 </div>
 
                 <!-- select familia -->
@@ -90,6 +85,6 @@
 
     </form>
 
-    {{-- @dump($producto); --}}
+    @dump($producto); 
 
 </div>

@@ -12,14 +12,9 @@
                 </label>
             </div>
             <img class="aspect-[16/9] object-cover object-center w-full h-auto"
-                src="{{ $image ? $image->temporaryUrl() : (isset($productoEdit['imagen']) ? Storage::url($productoEdit['imagen']) : asset('img/no-imagen.png')) }}"
-                alt="">
-
+                src="{{ $image ? $image->temporaryUrl() : Storage::url($productoEdit['imagen']) }}">
         </figure>
-
-
-
-
+        {{ Storage::url($productoEdit['imagen']) }}
         <div class="card">
             <div>
                 <x-validation-errors class="mb-4" />
@@ -38,9 +33,9 @@
                             wire:model="productoEdit.stock" />
                     </div>
                     <div>
-                        <x-label class="mb-3">Descripsion</x-label>
+                        <x-label class="mb-3">Descripcion</x-label>
                         <x-textarea class="w-full" placeholder="Ingrese la descripsion del producto"
-                            wire:model="productoEdit.descripsion" />
+                            wire:model="productoEdit.descripcion" />
                     </div>
 
                 </div>
