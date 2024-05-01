@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Familia;
 use App\Models\Producto;
 use App\Models\Subcategoria;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -28,9 +29,12 @@ class ProductoEdit extends Component
     public function mount($producto)
     {
 
-        $this->productoEdit = $producto->only('nombre','descripcion','stock','precio','imagen');
+        $this->productoEdit = $producto->only('id', 'nombre', 'descripcion', 'stock', 'precio', 'imagen', 'familia_id', 'categoria_id', 'subcategoria_id');
 
-       
+        $this->familia_id = $this->productoEdit['familia_id'] ?? '';
+        $this->categoria_id = $this->productoEdit['categoria_id'] ?? '';
+        $this->subcategoria_id = $this->productoEdit['subcategoria_id'] ?? '';
+
         $this->familias = Familia::all();
         $this->categorias = Categoria::all();
         $this->subcategorias = Subcategoria::all();
@@ -49,34 +53,37 @@ class ProductoEdit extends Component
 
     public function store()
     {
-        $this->validate([
+        $rules = [
             'productoEdit.subcategoria_id' => 'required|exists:subcategorias,id',
-            'productoEdit.categoria_id' => 'required|exists:categorias,id',
-            'productoEdit.familia_id' => 'required|exists:familias,id',
             'productoEdit.nombre' => 'required|max:255',
             'productoEdit.stock' => 'required|numeric|min:0',
             'productoEdit.descripcion' => 'nullable',
             'productoEdit.precio' => 'required|numeric|min:0',
-
-
             'image' => 'nullable|image|max:1024', // Validación para la imagen
-        ], [], [
-            'productoEdit.subcategoria_id' => 'subcategoria',
-            'productoEdit.categoria_id' => 'categoria',
-            'productoEdit.familia_id' => 'familia',
-            'productoEdit.nombre' => 'nombre',
-            'productoEdit.stock' => 'stock',
-            'productoEdit.descripcion' => 'descripcion',
-            'productoEdit.precio' => 'precio',
-        ]);
-        $producto = Producto::create($this->producto);
+        ];
 
-        // Guardar la imagen en el almacenamiento y asignarla al producto
-        $producto->imagen = $this->image->store('productos');
-        $producto->save();
+        // Validar la existencia de familia_id si está presente en el formulario
+        if (isset($this->productoEdit['familia_id'])) {
+            $rules['productoEdit.familia_id'] = 'required|exists:familias,id';
+        }
 
-        // Actualizar la variable productoEdit['imagen']
-        $this->productoEdit['imagen'] = $producto->imagen;
+        // Validar la existencia de categoria_id si está presente en el formulario
+        if (isset($this->productoEdit['categoria_id'])) {
+            $rules['productoEdit.categoria_id'] = 'required|exists:categorias,id';
+        }
+
+        // Validar los campos con las reglas definidas
+        $this->validate($rules);
+
+        // Actualizar la imagen solo si se proporciona una nueva
+        if ($this->image) {
+            Storage::delete([$this->productoEdit['imagen']]);
+            $this->productoEdit['imagen'] = $this->image->store('productos');
+        }
+
+        // Encuentra el producto existente y actualízalo
+        $producto = Producto::findOrFail($this->productoEdit['id']);
+        $producto->update($this->productoEdit);
 
         session()->flash('swal', [
             'icon' => 'success',
