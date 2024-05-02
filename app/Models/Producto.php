@@ -35,5 +35,11 @@ class Producto extends Model
                     ->withPivot('valor')
                     ->withTimestamps();
     }
+
+    //relacion muchos a muchos 
+    public function nota_compras(){
+        return $this->belongsToMany(Proveedor::class)
+                    ->withTimestamps();
+    }
     
 }

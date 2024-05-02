@@ -25,4 +25,10 @@ class Proveedor extends Model
         return $this->hasMany(Telefono::class);
     }
 
+    //relacion muchos a muchos 
+    public function nota_compras(){
+        return $this->belongsToMany(Producto::class)
+                    ->withTimestamps();
+    }
+
 }
