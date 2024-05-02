@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Admin\Subcategorias;
 
+use App\Models\Bitacora;
 use App\Models\Categoria;
 use App\Models\Familia;
 use App\Models\Subcategoria;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -38,7 +41,7 @@ class SubcategoriaEdit extends Component
             return collect(); // Retorna una colección vacía si no se ha seleccionado una familia
         }
     }
-    public function save()
+    public function save(Request $request)
     {
         $this->validate([
             'subcategoriaEdit.categoria_id' => 'required|exists:categorias,id',
@@ -55,6 +58,18 @@ class SubcategoriaEdit extends Component
             'title'=>'Bien Hecho',
             'text' => 'Subcategoria actualizada correctamente.'
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de una Subcategoría";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Subcategoría";
+        $bitacora->registro_id = $this->subcategoria->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.subcategorias.index');
     }
 

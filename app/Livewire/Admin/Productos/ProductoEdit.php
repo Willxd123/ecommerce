@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Admin\Productos;
 
+use App\Models\Bitacora;
 use App\Models\Categoria;
 use App\Models\Familia;
 use App\Models\Producto;
 use App\Models\Subcategoria;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -47,7 +50,7 @@ class ProductoEdit extends Component
     }
 
 
-    public function store()
+    public function store(Request $request)
     {
         $this->validate([
             'productoEdit.subcategoria_id' => 'required|exists:subcategorias,id',
@@ -83,6 +86,17 @@ class ProductoEdit extends Component
             'title' => 'Bien Hecho',
             'text' => 'Producto actualizado correctamente.'
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de un Producto";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Producto";
+        $bitacora->registro_id = $producto->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
 
         return redirect()->route('admin.productos.index');
     }

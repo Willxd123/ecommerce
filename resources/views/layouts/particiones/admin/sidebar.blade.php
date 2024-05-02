@@ -1,7 +1,7 @@
 <!-- php del sidebar, declaracion para botones-->
 @php
     $links = [
-        [    
+        [
             'name' => 'Dashboard',
             'icon' => 'fa-solid fa-gauge',
             'route' => route('admin.dashboard'),
@@ -41,6 +41,12 @@
             'icon' => 'fa-solid fa-truck-field',
             'route' => route('admin.proveedors.index'),
             'active' => request()->routeIs('admin.proveedors.*'),
+        ],
+        [
+            'name' => 'Bitacora',
+            'icon' => 'fa-solid fa-book',
+            'route' => route('admin.bitacora.index'),
+            'active' => request()->routeIs('admin.bitacora.index'),
         ],
     ];
 @endphp
