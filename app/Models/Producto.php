@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Producto extends Model
 {
@@ -17,7 +18,12 @@ class Producto extends Model
         'imagen',
         'subcategoria_id',
     ];
-
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Storage::url($this->imagen),
+        );
+    }
     //relacion uno a muchos inversa
     public function subcategoria(){
         return $this->belongsTo(Subcategoria::class);
