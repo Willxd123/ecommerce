@@ -8,6 +8,13 @@
             'active' => request()->routeIs('admin.dashboard'),
         ],
         [
+            //usuarios
+            'name' => 'Usuario',
+            'icon' => 'fa-solid fa-user',
+            'route' => route('admin.users.index'),
+            'active' => request()->routeIs('admin.users.*'),
+        ],
+        [
             //familia de familias
             'name' => 'Familias',
             'icon' => 'fa-solid fa-box-open',
@@ -41,6 +48,13 @@
             'icon' => 'fa-solid fa-truck-field',
             'route' => route('admin.proveedors.index'),
             'active' => request()->routeIs('admin.proveedors.*'),
+        ],
+        [
+            //compra
+            'name' => 'Compra',
+            'icon' => 'fa-solid fa-bag-shopping',
+            'route' => route('admin.nota_compras.index'),
+            'active' => request()->routeIs('admin.nota_compras.*'),
         ],
     ];
 @endphp
