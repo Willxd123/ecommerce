@@ -1,6 +1,7 @@
 <?php
 //use Illuminate\Http\Request;
 
+use App\Http\Controllers\Admin\BitacoraController;
 use App\Http\Controllers\Admin\FamiliaController;
 use App\Http\Controllers\Admin\SubcategoriaController;
 use App\Http\Controllers\Admin\CategoriaController;
@@ -20,7 +21,8 @@ Route::resource('familias', FamiliaController::class);
 Route::resource('categorias', CategoriaController::class);
 Route::resource('subcategorias', SubcategoriaController::class);
 Route::resource('productos', ProductoController::class);
-
 Route::resource('proveedors', ProveedorController::class);
+Route::get('/admin-bitacora', [BitacoraController::class, 'index'])->name('bitacora.index');
 Route::resource('nota_compras', NotaCompraController::class);
 Route::resource('users', UserController::class);
+

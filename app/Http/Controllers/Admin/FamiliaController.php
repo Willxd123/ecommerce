@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bitacora;
 use App\Models\Familia;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FamiliaController extends Controller
@@ -34,12 +36,24 @@ class FamiliaController extends Controller
         $request->validate([
             'nombre' => 'required'
         ]);
-        Familia::create($request->all());
+        $familia = Familia::create($request->all());
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Bien Hecho',
             'text' => 'Familia creada correctamente.'
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Creación de una Familia de Productos";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Familia";
+        $bitacora->registro_id = $familia->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.familias.index');
     }
 
@@ -75,13 +89,24 @@ class FamiliaController extends Controller
             'text' => 'Familia actualizada correctamente.'
         ]);
 
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de una Familia de Productos";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Familia";
+        $bitacora->registro_id = $familia->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.familias.index', $familia);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Familia $familia)
+    public function destroy(Familia $familia, Request $request)
     {
         if($familia->categorias->count()>0){
             session()->flash('swal',[
@@ -97,6 +122,18 @@ class FamiliaController extends Controller
             'title'=>'¡Bien hecho!',
             'text' => 'Familia eliminada correctamente.'
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Eliminación de una Familia de Productos";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Familia";
+        $bitacora->registro_id = $familia->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.familias.index');
     }
 }

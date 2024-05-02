@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Admin\Subcategorias;
 
+use App\Models\Bitacora;
 use App\Models\Categoria;
 use App\Models\Familia;
 use App\Models\Subcategoria;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -26,7 +29,7 @@ class SubcategoriaCreate extends Component
     {
         $this->subcategoria['categoria_id'] = '';
     }
-    public function save()
+    public function save(Request $request)
     {
         $this->validate([
             'subcategoria.categoria_id' => 'required|exists:categorias,id',
@@ -37,12 +40,24 @@ class SubcategoriaCreate extends Component
             'subcategoria.familia_id' => 'familia',
             'subcategoria.nombre' => 'nombre',
         ]);
-        Subcategoria::create($this->subcategoria);
+        $subcategoria = Subcategoria::create($this->subcategoria);
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Bien Hecho',
             'text' => 'Subcategoria creada correctamente.'
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Creación de una Subcategoría";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Subcategoría";
+        $bitacora->registro_id = $subcategoria->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.subcategorias.index');
     }
 
@@ -57,7 +72,6 @@ class SubcategoriaCreate extends Component
     }
     public function render()
     {
-
         return view('livewire.admin.subcategorias.subcategoria-create');
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bitacora;
 use App\Models\Proveedor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
@@ -37,13 +39,25 @@ class ProveedorController extends Controller
             'encargado' => 'required',
         ]);
 
-        Proveedor::create($request->all());
+        $proveedor = Proveedor::create($request->all());
 
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Bien Hecho',
             'text' => 'Proveedor creada correctamente.'
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Creación de un Proveedor";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Proveedor";
+        $bitacora->registro_id = $proveedor->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.proveedors.index');
     }
 
@@ -81,13 +95,24 @@ class ProveedorController extends Controller
             'text' => 'El proveedor actualizada correctamente.'
         ]);
 
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de un Proveedor";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Proveedor";
+        $bitacora->registro_id = $proveedor->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.proveedors.index', $proveedor);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Proveedor $proveedor)
+    public function destroy(Proveedor $proveedor, Request $request)
     {
         $proveedor->delete();
 
@@ -96,6 +121,18 @@ class ProveedorController extends Controller
             'title'=>'¡Bien hecho!',
             'text' => 'El proveedor eliminada correctamente.'
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Eliminación de un Proveedor";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Proveedor";
+        $bitacora->registro_id = $proveedor->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.proveedors.index');
     }
 }
