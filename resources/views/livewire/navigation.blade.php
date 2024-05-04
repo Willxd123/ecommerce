@@ -19,7 +19,7 @@
                         </a>
                     </h1>
                     <div class="flex-1 hidden md:block">
-                        <x-input class="w-full" placeholder="Buscar producto" />
+                        <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar producto" />
                     </div>
                     <div class="flex items-center space-x-4 md:space-x-8">
                         <x-dropdown>
@@ -52,6 +52,10 @@
                                     <x-dropdown-link href="{{ route('profile.show') }}">
                                         Mi perfil
                                     </x-dropdown-link>
+                                    <div class="border-t border-gray-200"></div>
+                                    <x-dropdown-link href="{{ route('admin.dashboard') }}">
+                                        Administrador
+                                    </x-dropdown-link>
                                 @endguest
                                 <div class="border-t border-gray-200"></div>
                                 <!-- Authentication -->
@@ -59,7 +63,7 @@
                                     @csrf
 
                                     <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                        {{ __('Log Out') }}
+                                       Finalizar sesíon
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>
@@ -72,7 +76,7 @@
                     </div>
                 </div>
                 <div class="mt4 md:hidden py-1">
-                    <x-input class="w-full" placeholder="Buscar producto" />
+                    <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar producto" />
                 </div>
             </x-container>
         </div>
@@ -87,7 +91,7 @@
                 <div class="bg-blue-400 px-4 py-3 text-white font-semibold">
                     <div class="flex justify-between items-center">
                         <span class="text-lg">
-                            jolas
+                            Familias
                         </span>
                         <button x-on:click="open = false">
                             <i class="fas fa-times"></i>
@@ -98,7 +102,7 @@
                     <ul>
                         @foreach ($familias as $familia)
                             <li wire:mouseover="$set('familia_id', {{ $familia->id }})">
-                                <a href=""
+                                <a href="{{route('cliente.familias.show', $familia)}}"
                                     class=" flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-blue-200">
                                     {{ $familia->nombre }}
                                     <i class="fa-solid fa-angle-right"></i>
@@ -114,20 +118,20 @@
                         <p class="border-b-[3px] border-blue-400 uppercase text-xl font-semibold">
                             {{ $this->familiaNombre }}
                         </p>
-                        <a href="" class="btn btn-blue" style="margin-right: 20px;">
+                        <a href="{{route('cliente.familias.show', $familia_id)}}" class="btn btn-blue" style="margin-right: 20px;">
                             ver todo
                         </a>
                     </div>
                     <ul class="grid grid-cols-3 gap-8 ">
                         @foreach ($this->categorias as $categoria)
                             <li>
-                                <a href="" class="text-gray-600 font-semibold text-lg">
+                                <a href="{{route('cliente.categorias.show', $categoria)}}" class="text-gray-600 font-semibold text-lg">
                                     {{ $categoria->nombre }}
                                 </a>
                                 <ul class="mt-4 space-y-2">
                                     @foreach ($categoria->subcategorias as $subcategoria)
                                         <li>
-                                            <a href="" class="text-sm text-gray-700 hover:text-blue-500">
+                                            <a href="{{route('cliente.subcategorias.show', $subcategoria)}}" class="text-sm text-gray-700 hover:text-blue-500">
                                                 {{ $subcategoria->nombre }}
                                             </a>
                                         </li>
@@ -140,4 +144,12 @@
             </div>
         </div>
     </div>
+    @push('js')
+        <script>
+            function search(value) {
+                alert(value);
+                Livewire.emit('search', value);
+            }
+        </script>
+    @endpush
 </div>

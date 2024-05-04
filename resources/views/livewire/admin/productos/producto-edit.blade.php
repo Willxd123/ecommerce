@@ -21,7 +21,6 @@
 
                 <div class="mb-4">
 
-
                     <div>
                         <x-label class="mb-3">Nombre</x-label>
                         <x-input class="w-full" placeholder="Ingrese el nombre del producto"
@@ -42,7 +41,7 @@
 
                 <!-- select familia -->
                 <x-label class="mb-3">Familia</x-label>
-                <x-select class="w-full" wire:model.live="productoEdit.familia_id" wire:loading.attr="disabled"
+                <x-select class="w-full" wire:model.live="familia_id" wire:loading.attr="disabled"
                     wire:target="updatedProductoFamiliaId">
                     <option value="" disabled>Seleccione una familia</option>
                     @foreach ($familias as $familia)
@@ -52,7 +51,7 @@
 
                 <!-- select categoria -->
                 <x-label class="mb-3">Categoría</x-label>
-                <x-select class="w-full" wire:model.live="productoEdit.categoria_id" wire:loading.attr="disabled"
+                <x-select class="w-full" wire:model.live="categoria_id" wire:loading.attr="disabled"
                     wire:target="updatedProductoCategoriaId">
                     <option value="" disabled {{ is_null($producto['categoria_id']) ? 'selected' : '' }}>
                         Seleccione una categoría</option>
@@ -77,7 +76,7 @@
                         wire:model="productoEdit.precio" />
                 </div>
 
-                <div class="flex justify-end">
+                <div class="flex justify-end py-3">
                     <x-button>
                         Guardar
                     </x-button>
@@ -86,7 +85,5 @@
             </div>
 
     </form>
-
-    {{-- @dump($producto); --}}
 
 </div>

@@ -21,14 +21,13 @@ class ProductoEdit extends Component
 {
 
     use WithFileUploads;
-    public $categorias;
-    public $subcategorias;
+    public $producto;
+    public $productoEdit;
     public $familias;
     public $familia_id = '';
     public $categoria_id = '';
     public $subcategoria_id = '';
-    public $producto;
-    public $productoEdit;
+
     public $image;
 
 
@@ -36,37 +35,36 @@ class ProductoEdit extends Component
     {
 
         $this->productoEdit = $producto->only('id', 'nombre', 'descripcion', 'stock', 'precio', 'imagen', 'familia_id', 'categoria_id', 'subcategoria_id');
-
-        $this->familia_id = $this->productoEdit['familia_id'] ?? '';
-        $this->categoria_id = $this->productoEdit['categoria_id'] ?? '';
-        $this->subcategoria_id = $this->productoEdit['subcategoria_id'] ?? '';
-
         $this->familias = Familia::all();
-        $this->categorias = Categoria::all();
-        $this->subcategorias = Subcategoria::all();
+        
+        $this->categoria_id = $producto->subcategoria->categoria->id;
+        $this->familia_id = $producto->subcategoria->categoria->familia_id;
+        
     }
     public function updatedProductoFamiliaId()
     {
         $this->categoria_id = '';
-        $this->productoEdit['subcategoria_id'] = ''; // Cambiado a subcategoria_id en lugar de producto['subcategoria_id']
+        $this->productoEdit['subcategoria_id'] = ''; 
     }
 
     public function updatedProductoCategoriaId()
     {
-        $this->productoEdit['subcategoria_id'] = ''; // Cambiado a subcategoria_id en lugar de producto['subcategoria_id']
+        $this->productoEdit['subcategoria_id'] = ''; 
     }
 
 
     public function store(Request $request)
     {
-        $rules = [
+        $this->validate([
+            /* 'productoEdit.familia_id' => 'required|exists:familias,id',
+            'productoEdit.categoria_id' => 'required|exists:categorias,id', */
             'productoEdit.subcategoria_id' => 'required|exists:subcategorias,id',
             'productoEdit.nombre' => 'required|max:255',
             'productoEdit.stock' => 'required|numeric|min:0',
             'productoEdit.descripcion' => 'nullable',
             'productoEdit.precio' => 'required|numeric|min:0',
             'image' => 'nullable|image|max:1024', // Validación para la imagen
-        ];
+        ]);
 
         // Validar la existencia de familia_id si está presente en el formulario
         if (isset($this->productoEdit['familia_id'])) {
@@ -78,8 +76,6 @@ class ProductoEdit extends Component
             $rules['productoEdit.categoria_id'] = 'required|exists:categorias,id';
         }
 
-        // Validar los campos con las reglas definidas
-        $this->validate($rules);
 
         // Actualizar la imagen solo si se proporciona una nueva
         if ($this->image) {
@@ -115,21 +111,14 @@ class ProductoEdit extends Component
     #[Computed()]
     public function categorias()
     {
-        if ($this->producto['familia_id']) {
-            return Categoria::where('familia_id', $this->producto['familia_id'])->get();
-        } else {
-            return collect(); // Retorna una colección vacía si no se ha seleccionado una familia
-        }
+        return Categoria::where('familia_id', $this->familia_id)->get();
     }
 
     #[Computed()]
     public function subcategorias()
     {
-        if ($this->producto['categoria_id']) {
-            return Subcategoria::where('categoria_id', $this->producto['categoria_id'])->get();
-        } else {
-            return collect(); // Retorna una colección vacía si no se ha seleccionado una categoría
-        }
+        return Subcategoria::where('categoria_id', $this->categoria_id)->get();
+
     }
 
 

@@ -22,6 +22,7 @@ class ProductoController extends Controller
     }
 
     /**
+     * ->with('subcategoria.categoria.familia')
      * Show the form for creating a new resource.
      */
     public function create()
@@ -45,7 +46,8 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        
+        return view('cliente.productos.show',compact('producto'));
     }
 
     /**
