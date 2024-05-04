@@ -10,14 +10,14 @@
                     <article class="bg-white shadow rounded overflow-hidden">
                          <img src="{{ $producto->image }}" class="w-full h-48 object-cover object-center"> 
                          <div class="p-4">
-                            <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[56px] mb-2">
+                            <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[56px] ">
                                 {{$producto->nombre}}
                             </h1>
-                            <p class="text-gray-600 mb-4">
+                            <p class="text-gray-600 mb-2">
                                Bs/ {{$producto->precio}}
                             </p>
 
-                            <a href="" class="btn btn-blue block w-full text-center">
+                            <a href="{{route('cliente.productos.show', $producto)}}" class="btn btn-blue block w-full text-center">
                                 Ver mas
                             </a>
                          </div>

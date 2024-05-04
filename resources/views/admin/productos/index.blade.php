@@ -31,14 +31,17 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Familia
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Categoria
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Stock
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Precio
                         </th>
-
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -52,16 +55,18 @@
                                 {{ $producto->nombre }}
                             </td>
                             <td class="px-6 py-4">
+                                {{ $producto->subcategoria->categoria->familia->nombre }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $producto->subcategoria->categoria->nombre }}
+                            </td>
+                            <td class="px-6 py-4">
                                 {{ $producto->stock }}
                             </td>
-
                             <td class="px-6 py-4">
                                 {{ $producto->precio }}
                             </td>
                             
-
-
-
                             <td class="px-6 py-4">
                                 <a href="{{ route('admin.productos.edit', $producto) }}">
                                     Editar

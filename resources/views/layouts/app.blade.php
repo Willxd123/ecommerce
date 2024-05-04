@@ -36,11 +36,15 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+                
             </main>
+            <div class="mt-16">
+                @include('layouts.particiones.app.footer')
+            </div>
         </div>
 
         @stack('modals')
-
+       
         @livewireScripts
     </body>
 </html>

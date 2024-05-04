@@ -6,7 +6,7 @@
             <div class="absolute top-8 right-8">
                 <label class="flex items-center px-4 py-2 rounded-lg bg-white cursor-pointer text-gray-700">
                     <i class="fas fa-camera mr-2">
-                        Actualizar imagen
+                        Cargar imagen
                         <input type="file" class="hidden" accept="image/*" wire:model="image">
                     </i>
                 </label>
@@ -75,7 +75,7 @@
                         wire:model="producto.precio" />
                 </div>
 
-                <div class="flex justify-end">
+                <div class="flex justify-end py-3">
                     <x-button>
                         Guardar
                     </x-button>
@@ -84,7 +84,5 @@
             </div>
 
     </form>
-
-    @dump($producto); 
 
 </div>

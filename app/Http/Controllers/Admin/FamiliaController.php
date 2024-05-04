@@ -62,7 +62,7 @@ class FamiliaController extends Controller
      */
     public function show(Familia $familia)
     {
-        
+        return view('cliente.familias.show',compact('familia'));
     }
 
     /**
