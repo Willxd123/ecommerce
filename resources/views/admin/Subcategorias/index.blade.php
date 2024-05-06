@@ -41,6 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     @foreach ($subcategorias as $subcategoria)
                         <tr class="bg-white dark:bg-gray-800">
                             <th scope="row"
