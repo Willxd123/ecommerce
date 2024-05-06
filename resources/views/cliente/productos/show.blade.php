@@ -73,7 +73,7 @@
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="col-span-1">
                     <figure>
-                        <img src="{{ $producto->imagenes[1]->ruta  }}" class="aspect-[16/9] w-full object-cover object-center"
+                        <img src="{{ $producto->imagenes[1]->ruta}}" class="aspect-[16/9] w-full object-cover object-center"
                             alt="">
                     </figure>
                     <div class="text-sm py-2">
