@@ -24,6 +24,11 @@ class Producto extends Model
             get: fn() => Storage::url($this->imagen),
         );
     }
+
+    public function imagenes(){
+        return $this->hasMany(Image::class);
+    }
+
     //relacion uno a muchos inversa
     public function subcategoria(){
         return $this->belongsTo(Subcategoria::class);
