@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bitacora;
 use App\Models\Categoria;
 use App\Models\Familia;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\Subcategoria;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -70,8 +72,35 @@ class ProductoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Producto $producto)
+    public function destroy(Producto $producto, Request $request)
     {
-        //
+        if($producto->imagenes()->count()>0){
+            session()->flash('swal',[
+                'icon' => 'error',
+                'title' => '¡ups!',
+                'text' => 'no se puede eliminar el producto por que tiene imagenes asociadas'
+            ]);
+            return redirect()->route('admin.productos.edit', $producto);
+        }
+        $producto->delete();
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'¡Bien hecho!',
+            'text' => 'producto eliminado correctamente.'
+        ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Eliminación de una Producto";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "producto";
+        $bitacora->registro_id = $producto->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
+        return redirect()->route('admin.productos.index');
     }
+    
 }
