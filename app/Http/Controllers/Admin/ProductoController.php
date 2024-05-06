@@ -74,14 +74,6 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto, Request $request)
     {
-        if($producto->imagenes()->count()>0){
-            session()->flash('swal',[
-                'icon' => 'error',
-                'title' => '¡ups!',
-                'text' => 'no se puede eliminar el producto por que tiene imagenes asociadas'
-            ]);
-            return redirect()->route('admin.productos.edit', $producto);
-        }
         $producto->delete();
         session()->flash('swal',[
             'icon'=> 'success',
