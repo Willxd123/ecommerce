@@ -73,13 +73,12 @@
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="col-span-1">
                     <figure>
-                        <img src="{{ $producto->imagenes[2]->ruta }}" class="aspect-[16/9] w-full object-cover object-center"
+                        <img src="{{ $producto->imagenes[1]->ruta}}" class="aspect-[16/9] w-full object-cover object-center"
                             alt="">
                     </figure>
                     <div class="text-sm py-2">
                         {{ $producto->descripcion }}
                     </div>
-
                 </div>
                 <div class="col-span-1">
                     <h1 class="text-xl text-gray-600 mb-2">
