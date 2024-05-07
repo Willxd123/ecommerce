@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
+Route::middleware(['auth'])->group(function () {
+
 Route::resource('familias', FamiliaController::class);
 Route::resource('categorias', CategoriaController::class);
 Route::resource('subcategorias', SubcategoriaController::class);
@@ -26,5 +28,10 @@ Route::resource('proveedors', ProveedorController::class);
 Route::get('/admin-bitacora', [BitacoraController::class, 'index'])->name('bitacora.index');
 Route::resource('nota_compras', NotaCompraController::class);
 Route::resource('users', UserController::class);
+
+
+});
+
 Route::get('/imagenes/{id}', [ImageController::class, 'create'])->name('imagenes.create');
 Route::post('/imagenes/{id}', [ImageController::class, 'store'])->name('imagenes.store');
+

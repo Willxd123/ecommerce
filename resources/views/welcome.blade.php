@@ -25,8 +25,6 @@
                 @endforeach
             </div>
         </x-container>
-        <div class="mt-16">
-            @include('layouts.particiones.app.footer')
-        </div>
+        
     </div>
 </x-app-layout>

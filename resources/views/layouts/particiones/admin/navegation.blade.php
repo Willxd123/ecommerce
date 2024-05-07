@@ -17,11 +17,16 @@
                         </path>
                     </svg>
                 </button>
-                <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-                    <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
-                </a>
+                <h1 class="text-gray-700 ms-2">
+                    <a href="/" class="flex flex-col">
+                        <span class="text-xl md:text-3xl leading-3 md:leading-6 font-semibold">
+                            Ecommerce
+                        </span>
+                        <span class="text-xs">
+                            Tienda online
+                        </span>
+                    </a>
+                </h1>
             </div>
             <div class="flex items-center">
                 <!--boton de perfil-->
