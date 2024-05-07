@@ -16,6 +16,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
+	<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
