@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use App\Models\Bitacora;
 use App\Models\Categoria;
 use App\Models\Subcategoria;
@@ -11,27 +12,25 @@ use Illuminate\Http\Request;
 
 class SubcategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('can:admin.subcategorias.index')->only('index');
+        $this->middleware('can:admin.subcategorias.edit')->only('edit', 'update');
+        $this->middleware('can:admin.subcategorias.create')->only('create', 'store');
+    }
+
     public function index()
     {
         $subcategorias = Subcategoria::orderBy('id', 'desc')->with('categoria.familia')->paginate(10);
         return view('admin.subcategorias.index', compact('subcategorias'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+  
     public function create()
     {
        
         return view('admin.subcategorias.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([

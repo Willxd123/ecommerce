@@ -50,7 +50,7 @@
             'active' => request()->routeIs('admin.proveedors.*'),
         ],
         [
-
+            //bitacora
             'name' => 'Bitacora',
             'icon' => 'fa-solid fa-book',
             'route' => route('admin.bitacora.index'),

@@ -4,7 +4,7 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Productos',
+        'name' => 'Subcategorias',
     ],
 ]">
 
@@ -12,14 +12,14 @@
     <!-- Botón "Nuevo" -->
     <div>
         <x-slot name="action">
-            <a class="btn btn-blue" href="{{ route('admin.productos.create') }}">
+            <a class="btn btn-blue" href="{{ route('admin.subcategorias.create') }}">
                 Nuevo
             </a>
         </x-slot>
     </div>
 
 
-    @if ($productos->count())
+    @if ($subcategorias->count())
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -31,61 +31,42 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Familia
+                            categoria
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Categoria
+                            familia
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Stock
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Precio
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Acciones
-                        </th>
+
+
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($productos as $producto)
+                    
+                    @foreach ($subcategorias as $subcategoria)
                         <tr class="bg-white dark:bg-gray-800">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $producto->id }}
+                                {{ $subcategoria->id }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $producto->nombre }}
+                                {{ $subcategoria->nombre }}
+                            </td>
+                            
+                            <td class="px-6 py-4">
+                                {{ $subcategoria->categoria->nombre }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $producto->subcategoria->categoria->familia->nombre }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->subcategoria->categoria->nombre }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->stock }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->precio }}
+                                {{ $subcategoria->categoria->familia->nombre }}
                             </td>
 
+
+
                             <td class="px-6 py-4">
-                                <a href="{{ route('admin.productos.edit', $producto) }}">
+                                <a href="{{ route('admin.subcategorias.edit', $subcategoria) }}">
                                     Editar
                                 </a>
                             </td>
-                            @if ($producto->imagenes->isEmpty())
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('admin.imagenes.create', $producto) }}">
-                                        Agregar Imágenes
-                                    </a>
-                                </td>
-                            @else
-                                <td class="px-6 py-4">
-                                    <i class="fa-solid fa-check"></i>
-                                </td>
-                            @endif
+
                         </tr>
                     @endforeach
 
@@ -96,7 +77,7 @@
 
         <!-- paginacion-->
         <div>
-            {{ $productos->links() }}
+            {{ $subcategorias->links() }}
         </div>
     @else
         <!--estilo de alertas-->
@@ -109,7 +90,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se reguistraron productos
+                <span class="font-medium">Info alert!</span> Aun no se reguistraron grados
             </div>
     @endif
 </x-admin-layout>

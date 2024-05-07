@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Producto extends Model
 {
@@ -18,12 +19,20 @@ class Producto extends Model
         'imagen',
         'subcategoria_id',
     ];
+    
     protected function image(): Attribute
     {
         return Attribute::make(
             get: fn() => Storage::url($this->imagen),
         );
     }
+
+
+    public function imagenes(){
+        return $this->hasMany(Image::class);
+    }
+
+
     //relacion uno a muchos inversa
     public function subcategoria(){
         return $this->belongsTo(Subcategoria::class);
@@ -44,8 +53,7 @@ class Producto extends Model
 
     //relacion muchos a muchos 
     public function nota_compras(){
-        return $this->belongsToMany(Proveedor::class)
-                    ->withTimestamps();
+        return $this->belongsToMany(NotaCompra::class, 'detalle_compras');
     }
     
 }
