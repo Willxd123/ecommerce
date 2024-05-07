@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Proveedor extends Model
 {
@@ -25,10 +26,8 @@ class Proveedor extends Model
         return $this->hasMany(Telefono::class);
     }
 
-    //relacion muchos a muchos 
+    //relacion uno a muchos
     public function nota_compras(){
-        return $this->belongsToMany(Producto::class)
-                    ->withTimestamps();
+        return $this->hasMany(NotaCompra::class);
     }
-
 }

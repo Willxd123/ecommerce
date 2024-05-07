@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
+Route::middleware(['auth'])->group(function () {
+
 Route::resource('familias', FamiliaController::class);
 Route::resource('categorias', CategoriaController::class);
 Route::resource('subcategorias', SubcategoriaController::class);
@@ -26,3 +28,4 @@ Route::get('/admin-bitacora', [BitacoraController::class, 'index'])->name('bitac
 Route::resource('nota_compras', NotaCompraController::class);
 Route::resource('users', UserController::class);
 
+});

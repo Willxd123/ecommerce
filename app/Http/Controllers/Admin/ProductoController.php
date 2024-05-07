@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use App\Models\Categoria;
 use App\Models\Familia;
 use App\Models\Producto;
@@ -12,18 +13,19 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('can:admin.productos.index')->only('index');
+        $this->middleware('can:admin.productos.edit')->only('edit', 'update');
+        $this->middleware('can:admin.productos.create')->only('create', 'store');
+    }
+
     public function index()
     {
         $productos = Producto::orderBy('id', 'desc')->with('subcategoria.categoria.familia')->paginate(10);
         return view('admin.productos.index', compact('productos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
 
@@ -31,18 +33,12 @@ class ProductoController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
        
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Producto $producto)
     {
         //
@@ -70,6 +66,13 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'Excelente!',
+            'text' => 'El usuario fue eliminado.'
+        ]);
+
+        return redirect()->route('admin.productos.index' );
     }
 }

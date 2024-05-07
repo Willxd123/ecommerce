@@ -75,7 +75,7 @@
                         wire:model="producto.precio" />
                 </div>
 
-                <div class="flex justify-end">
+                <div class="mt-4 flex justify-end"> 
                     <x-button>
                         Guardar
                     </x-button>
@@ -84,7 +84,5 @@
             </div>
 
     </form>
-
-    @dump($producto); 
 
 </div>
