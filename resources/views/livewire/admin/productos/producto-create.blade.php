@@ -105,7 +105,11 @@
                         wire:model="producto.precio" />
                 </div>
 
+
+                <div class="mt-4 flex justify-end"> 
+
                 <div class="flex justify-end py-3">
+
                     <x-button>
                         Guardar
                     </x-button>
