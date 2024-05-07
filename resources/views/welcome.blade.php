@@ -3,17 +3,11 @@
         <x-container>
             <h1 class="text-3x1 font-bold text-gray-700 mb-4">
                 Ultimo productos
-                
             </h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($productos as $producto)
                     <article class="bg-white shadow rounded overflow-hidden">
                          <img src="{{ $producto->imagenes[0]->ruta }}" class="object-cover w-auto items-center"> 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/main
                          <div class="p-4">
                             <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[56px] ">
                                 {{$producto->nombre}}
