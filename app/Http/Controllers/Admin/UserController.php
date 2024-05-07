@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
+
+use App\Models\Bitacora;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controller;
 
 class UserController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('can:admin.users.index')->only('index');
+        $this->middleware('can:admin.users.edit')->only('edit', 'update');
+        $this->middleware('can:admin.users.create')->only('create', 'store');
+    }
+
     public function index()
     {
         $users = User::orderBy('id', 'desc')->paginate(10);
@@ -53,6 +63,17 @@ class UserController extends Controller
             'text' => 'El usuario fue creado correctamente',
         ]);
 
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Creación de un Usuario";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Usuario";
+        $bitacora->registro_id = $user->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.users.index');
     }
 
@@ -93,10 +114,20 @@ class UserController extends Controller
             'text' => 'El usuario fue actualizado correctamente',
         ]);
     
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de un Usuario";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Usuario";
+        $bitacora->registro_id = $user->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
         return redirect()->route('admin.users.index');
     }
     
-    public function destroy(User $user)
+    public function destroy(User $user, Request $request)
     {
         $user->roles()->detach();
         $user->delete(); 
@@ -106,6 +137,17 @@ class UserController extends Controller
             'title'=>'Excelente!',
             'text' => 'El usuario fue eliminado.'
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Eliminación de un Usuario";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Proveedor";
+        $bitacora->registro_id = $user->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
 
         return redirect()->route('admin.users.index' );
     }

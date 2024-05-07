@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use App\Models\Bitacora;
 use App\Models\Familia;
 use Carbon\Carbon;
@@ -10,9 +11,13 @@ use Illuminate\Http\Request;
 
 class FamiliaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('can:admin.familias.index')->only('index');
+        $this->middleware('can:admin.familias.edit')->only('edit', 'update');
+        $this->middleware('can:admin.familias.create')->only('create', 'store');
+    }
+
     public function index()
     {
         //migrasion = modulo (identifica al modulo y la bd para la funcionalidad)
@@ -20,17 +25,11 @@ class FamiliaController extends Controller
         return view('admin.familias.index', compact('familias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.familias.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
