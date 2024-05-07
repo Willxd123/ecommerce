@@ -13,10 +13,15 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
+use Livewire\Attributes\Validate;
+
 class ProductoCreate extends Component
 {
     use WithFileUploads;
-    public $image;
+
+    #[Validate('image|max:1024')]
+
+    public $image = "";
     public $familias;
     public $familia_id = '';
     public $categoria_id = '';
@@ -52,9 +57,7 @@ class ProductoCreate extends Component
 
     public function store(Request $request)
     {
-        
         $this->validate([
-            'image' => 'required|image|max:1024', // Validación para la imagen
             'producto.subcategoria_id' => 'required|exists:subcategorias,id',
             'producto.categoria_id' => 'required|exists:categorias,id',
             'producto.familia_id' => 'required|exists:familias,id',
@@ -71,7 +74,7 @@ class ProductoCreate extends Component
             'producto.descripcion' => 'descripcion',
             'producto.precio' => 'precio',
         ]);
-        $this->producto['imagen']= $this->image->store('productos');
+        $this->producto['imagen']= $this->image;
         $producto = Producto::create($this->producto);
         
         session()->flash('swal', [

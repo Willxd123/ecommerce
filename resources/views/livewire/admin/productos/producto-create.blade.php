@@ -1,19 +1,49 @@
 <div>
+
+    <button id="toggleFormButton">Mostrar Formulario</button>
+
+    <!-- Formulario flotante -->
+    <div id="floatingForm" style="display: none;">
+        <form method="POST" action="{{ route('admin.categorias.store') }}">
+            @csrf
+            <!-- Aquí colocarías los campos del formulario -->
+            <input type="text" name="campo1" placeholder="Campo 1">
+            <input type="text" name="campo2" placeholder="Campo 2">
+            <!-- Otros campos y botones del formulario -->
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        // Obtener referencias al botón y al formulario
+        const toggleFormButton = document.getElementById('toggleFormButton');
+        const floatingForm = document.getElementById('floatingForm');
+        // Agregar un event listener al botón para mostrar/ocultar el formulario
+        toggleFormButton.addEventListener('click', function() {
+            if (floatingForm.style.display === 'none') {
+                floatingForm.style.display = 'block'; // Mostrar el formulario
+            } else {
+                floatingForm.style.display = 'none'; // Ocultar el formulario
+            }
+        });
+    </script>
+
+
     <form wire:submit="store" enctype="multipart/form-data">
 
         <!--imagen-->
-        <figure class="mb-4 relative">
-            <div class="absolute top-8 right-8">
+        {{-- <figure class="mb-4 relative">
+            <div class="">
                 <label class="flex items-center px-4 py-2 rounded-lg bg-white cursor-pointer text-gray-700">
                     <i class="fas fa-camera mr-2">
-                        Actualizar imagen
+                        Cargar imagen
                         <input type="file" class="hidden" accept="image/*" wire:model="image">
                     </i>
                 </label>
             </div>
             <img class="aspect-[16/9] object-cover object-center w-full h-auto"
                 src="{{ $image ? $image->temporaryUrl() : asset('img/no-imagen.png') }}" alt="">
-        </figure>
+        </figure> --}}
 
         <div class="card">
             <div>
@@ -28,7 +58,7 @@
                     </div>
                     <div>
                         <x-label class="mb-3">stock</x-label>
-                        <x-input type="number"  class="w-full" placeholder="Ingrese el stock del producto"
+                        <x-input type="number" class="w-full" placeholder="Ingrese el stock del producto"
                             wire:model="producto.stock" />
                     </div>
                     <div>
@@ -75,12 +105,15 @@
                         wire:model="producto.precio" />
                 </div>
 
+
                 <div class="mt-4 flex justify-end"> 
+
+                <div class="flex justify-end py-3">
+
                     <x-button>
                         Guardar
                     </x-button>
                 </div>
-
             </div>
 
     </form>

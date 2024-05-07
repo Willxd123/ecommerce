@@ -63,7 +63,7 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        //
+        return view('cliente.categorias.show',compact('categoria'));
     }
 
     /**

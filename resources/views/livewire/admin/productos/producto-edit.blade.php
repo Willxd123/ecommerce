@@ -21,7 +21,6 @@
 
                 <div class="mb-4">
 
-
                     <div>
                         <x-label class="mb-3">Nombre</x-label>
                         <x-input class="w-full" placeholder="Ingrese el nombre del producto"
@@ -42,7 +41,7 @@
 
                 <!-- select familia -->
                 <x-label class="mb-3">Familia</x-label>
-                <x-select class="w-full" wire:model.live="productoEdit.familia_id" wire:loading.attr="disabled"
+                <x-select class="w-full" wire:model.live="familia_id" wire:loading.attr="disabled"
                     wire:target="updatedProductoFamiliaId">
                     <option value="" disabled>Seleccione una familia</option>
                     @foreach ($familias as $familia)
@@ -52,7 +51,7 @@
 
                 <!-- select categoria -->
                 <x-label class="mb-3">Categoría</x-label>
-                <x-select class="w-full" wire:model.live="productoEdit.categoria_id" wire:loading.attr="disabled"
+                <x-select class="w-full" wire:model.live="categoria_id" wire:loading.attr="disabled"
                     wire:target="updatedProductoCategoriaId">
                     <option value="" disabled {{ is_null($producto['categoria_id']) ? 'selected' : '' }}>
                         Seleccione una categoría</option>
@@ -77,6 +76,7 @@
                         wire:model="productoEdit.precio" />
                 </div>
 
+
                 <div class="mt-4 flex justify-end">
                     <x-danger-button onclick="confirmDelete()">
                         Eliminar
@@ -87,11 +87,38 @@
                     </x-button>
                 </div>                
 
+
+
             </div>
+            <div class="flex justify-end py-2">
+                <x-danger-button onclick="confirmDelete()">
+                    Eliminar
+                </x-danger-button>
+                <x-button class="ml-2 ">Actualizar</x-button>
+            </div>
+        </div>
+    </form>
+    <form action="{{ route('admin.productos.destroy', $producto) }}" method="POST" id="delete-from">
+        @csrf
+        @method('DELETE')
 
     </form>
 
-    {{-- @dump($producto); --}}
+    @push('js')
+        <script>
+            function confirmDelete() {
+                Swal.fire({
+                    title: "Estas seguro?",
+                    text: "¡No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "¡Sí, bórralo!",
+                    cancelButtonText: "Cancelar",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
 
     <form action="{{ route('admin.productos.destroy', $producto) }}" method="POST" id="delete-from">
         @csrf
@@ -113,6 +140,8 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
      
+
+
                         document.getElementById('delete-from').submit();
                     }
                 });

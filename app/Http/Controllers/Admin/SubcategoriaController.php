@@ -68,7 +68,7 @@ class SubcategoriaController extends Controller
      */
     public function show(Subcategoria $subcategoria)
     {
-        //
+        return view('cliente.subcategorias.show',compact('subcategoria'));
     }
 
     /**

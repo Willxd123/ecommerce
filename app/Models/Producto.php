@@ -27,6 +27,12 @@ class Producto extends Model
         );
     }
 
+
+    public function imagenes(){
+        return $this->hasMany(Image::class);
+    }
+
+
     //relacion uno a muchos inversa
     public function subcategoria(){
         return $this->belongsTo(Subcategoria::class);

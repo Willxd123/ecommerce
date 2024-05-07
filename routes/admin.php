@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\NotaCompraController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\ProveedorController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ImageController;
 use App\Models\Categoria;
 use App\Models\Subcategoria;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,9 @@ Route::get('/admin-bitacora', [BitacoraController::class, 'index'])->name('bitac
 Route::resource('nota_compras', NotaCompraController::class);
 Route::resource('users', UserController::class);
 
+
 });
+
+Route::get('/imagenes/{id}', [ImageController::class, 'create'])->name('imagenes.create');
+Route::post('/imagenes/{id}', [ImageController::class, 'store'])->name('imagenes.store');
+

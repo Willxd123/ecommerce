@@ -9,7 +9,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $productos = Producto::orderBy('created_at','desc')->take(12)->get();
+        $productos = Producto::all();
         return view('welcome', compact('productos'));
     }
 }
