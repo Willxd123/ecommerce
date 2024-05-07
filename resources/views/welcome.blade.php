@@ -9,8 +9,11 @@
                 @foreach ($productos as $producto)
                     <article class="bg-white shadow rounded overflow-hidden">
                          <img src="{{ $producto->imagenes[0]->ruta }}" class="object-cover w-auto items-center"> 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/main
                          <div class="p-4">
                             <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[56px] ">
                                 {{$producto->nombre}}
