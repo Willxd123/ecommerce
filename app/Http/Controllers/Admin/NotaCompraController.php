@@ -3,61 +3,49 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetalleCompra;
+use App\Models\NotaCompra;
 use Illuminate\Http\Request;
 
 class NotaCompraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        
+    }
+
     public function index()
     {
-        //
+        $compras = NotaCompra::orderBy('id', 'desc')->paginate(10);
+        return view('admin.nota_compras.index', compact('compras'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view('admin.nota_compras.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $compras = NotaCompra::findOrFail($id);
+        $detalles = DetalleCompra::where('nota_compra_id', $id)->get();
+        return view('admin.nota_compras.ver', compact('compras', 'detalles'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         //
